@@ -1,0 +1,22 @@
+services:
+  giliover-freetube:
+    container_name: giliover-freetube
+    image: giliover-freetube
+    stdin_open: true
+    privileged: true
+    tty: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - PULSE_SERVER=unix:/run/user/1000/pulse/native
+    build:
+      context: .
+      dockerfile: ./Dockerfile.freetube
+    network_mode: "host"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /home/giliover/.config:/home/ubuntu/.config
+      - /run/user/1000/pulse:/run/user/1000/pulse
+      - /dev/snd:/dev/snd
+    devices:
+      - /dev/snd
+    restart: no
